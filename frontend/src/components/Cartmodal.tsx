@@ -1,6 +1,7 @@
 import { Button, Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useState } from "react";
 import { categoryContext } from "../context/categoryContext";
+import { Bounce, toast } from "react-toastify";
 
 export default function CartModal({
   cartModal,
@@ -29,8 +30,21 @@ export default function CartModal({
       body: JSON.stringify({ productName: name, price, quantity, image }),
     });
     const data = await response.json();
-    console.log(data);
-    alert(data.message);
+    if (data.success === false) {
+      toast.error(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      setcartModal(false);
+      return;
+    }
     setcartModal(false);
     settotalCartItems((prevItems) => prevItems + quantity);
   };
@@ -79,14 +93,14 @@ export default function CartModal({
             <div className="mt-2 text-lg text-gray-500">
               <div className="flex items-center mt-4">
                 <Button
-                  className="px-3 py-1 text-lg font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="px-3 py-1 text-lg font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   onClick={decreaseQuantity}
                 >
                   -
                 </Button>
                 <p className="mx-4">{quantity}</p>
                 <Button
-                  className="px-3 py-1 text-lg font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="px-3 py-1 text-lg font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   onClick={increaseQuantity}
                 >
                   +
@@ -96,7 +110,7 @@ export default function CartModal({
             </div>
             <div className="mt-4">
               <Button
-                className="inline-flex items-center px-5 py-2 text-lg font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center px-5 py-2 text-lg font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 onClick={() => {
                   cartHandler();
                 }}

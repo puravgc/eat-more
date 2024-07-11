@@ -81,7 +81,7 @@ const Card = ({ name, image, price }) => {
             onClick={() => {
               setcartModal(true);
             }}
-            className="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

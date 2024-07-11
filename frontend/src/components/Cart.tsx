@@ -1,22 +1,48 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import { IoIosClose } from "react-icons/io";
 import { Bounce, toast } from "react-toastify";
 import { categoryContext } from "../context/categoryContext";
 import { GrSubtract, GrAdd } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
+  const navigate = useNavigate();
   const [cartItems, setcartItems] = useState([]);
   const [totalPrice, settotalPrice] = useState(0);
   const { totalCartItems, settotalCartItems } = useContext(categoryContext);
   const fetchCartItems = async () => {
     try {
-      const response = await fetch("http://localhost:5000/getcart");
+      const response = await fetch("http://localhost:5000/getcart", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const data = await response.json();
-      setcartItems(data);
-      calculateTotal(data);
+
+      if (response.ok) {
+        setcartItems(data);
+        calculateTotal(data);
+      } else {
+        toast.error(data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        navigate("/login");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
   const calculateTotal = (items) => {
     const total = items.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -53,7 +79,9 @@ const Cart = () => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+
         body: JSON.stringify({ quantity: newQuantity }),
       });
       const data = await response.json();

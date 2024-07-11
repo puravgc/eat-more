@@ -2,6 +2,7 @@ import React from "react";
 import illustration from "../../public/illustration.png"
 import { FlipWords } from "./ui/flip-words";
 import { useNavigate } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 export default function Example() {
   const words = ["Delight", "Pleasure", "Satisfaction", "Excitement"];
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Example() {
     <div className="bg-white h-screen overflow-hidden">
       <div className="px-6 pt-14 lg:px-8  flex justify-between items-center">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center">
+          <div className="">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Delivering <FlipWords words={words} /> <br /> to Your Doorstep
             </h1>
@@ -18,18 +19,18 @@ export default function Example() {
               to gourmet meals, order your favorites and enjoy fast, reliable
               delivery. Your next delicious meal is just a few clicks away!
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10">
               <button
                 onClick={() => {
                   navigate("/order");
                 }}
-                className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                className="flex rounded-md bg-red-600 px-5 py-4 text-xl font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
               >
-                Start Ordering
+                <span>Start Ordering Now </span>
+                <FaArrowRight className="ml-2" />
               </button>
-              <button className="text-sm font-semibold leading-6 text-gray-900">
-                Support Us <span aria-hidden="true">→</span>
-              </button>
+              
+             
             </div>
           </div>
         </div>

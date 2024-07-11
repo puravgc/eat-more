@@ -14,12 +14,20 @@ const Navbar = () => {
   const { isLoggedIn, setisLoggedIn } = useContext(userContext);
   const { totalCartItems, settotalCartItems } = useContext(categoryContext);
   const navigate = useNavigate();
+
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/getcart");
+      const response = await fetch("http://localhost:5000/getcart", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const data = await response.json();
-      const totalItems = data.reduce((acc, item) => acc + item.quantity, 0);
-      settotalCartItems(totalItems);
+      if (data.success === true) {
+        const totalItems = data.reduce((acc, item) => acc + item.quantity, 0);
+        settotalCartItems(totalItems);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +38,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     if (token) {
       setisLoggedIn(true);
     } else {
@@ -40,7 +48,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md px-16">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white px-16 backdrop-blur-lg bg-opacity-60">
         <nav
           className="flex items-center justify-between pt-2 pb-1 lg:px-8"
           aria-label="Global"
@@ -88,7 +96,7 @@ const Navbar = () => {
 
                 <button
                   onClick={() => {
-                    Cookies.remove("token");
+                    localStorage.removeItem("token");
                     setisLoggedIn(false);
                     navigate("/");
                   }}
@@ -118,11 +126,11 @@ const Navbar = () => {
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-              <div className="items-center flex flex-col">
-                <p className="text-[20px] font-bold ">
-                  <img src={logo} alt="" className="h-20" />
-                </p>
-              </div>
+                <div className="items-center flex flex-col">
+                  <p className="text-[20px] font-bold ">
+                    <img src={logo} alt="" className="h-20" />
+                  </p>
+                </div>
               </a>
               <button
                 type="button"
@@ -136,7 +144,6 @@ const Navbar = () => {
             <div className="mt-6 flow-root">
               <div className="">
                 <div className="space-y-2 py-6">
-
                   {isLoggedIn ? (
                     <>
                       <div
