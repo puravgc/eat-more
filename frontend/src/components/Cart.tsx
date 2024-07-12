@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { IoIosClose } from "react-icons/io";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { categoryContext } from "../context/categoryContext";
 import { GrSubtract, GrAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
@@ -25,17 +25,7 @@ const Cart = () => {
         setcartItems(data);
         calculateTotal(data);
       } else {
-        toast.error(data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
+        toast.error(data.message);
         navigate("/login");
       }
     } catch (error) {

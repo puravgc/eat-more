@@ -6,10 +6,10 @@ const Order = () => {
   const { selectedCategory } = useContext(categoryContext);
   return (
     <div className="h-screen w-screen flex">
-      <div className="mt-7">
+      <div className=" w-1/5">
         <Sidebar />
       </div>
-      <div className="mt-16">
+      <div className="overflow-y-auto w-full">
         <Foods selectedCategory={selectedCategory} />
       </div>
     </div>

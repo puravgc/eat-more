@@ -1,5 +1,5 @@
 import React from "react";
-import illustration from "../../public/illustration.png"
+import illustration from "../../public/illustration.png";
 import { FlipWords } from "./ui/flip-words";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
@@ -24,13 +24,11 @@ export default function Example() {
                 onClick={() => {
                   navigate("/order");
                 }}
-                className="flex rounded-md bg-red-600 px-5 py-4 text-xl font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                className="group flex justify-center items-center rounded-full bg-red-600 px-5 py-4 text-lg font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 transition-all duration-300"
               >
-                <span>Start Ordering Now </span>
-                <FaArrowRight className="ml-2" />
+                <span>Start Ordering Now</span>
+                <FaArrowRight className="ml-3 transform transition-transform duration-300 group-hover:translate-x-2" />
               </button>
-              
-             
             </div>
           </div>
         </div>

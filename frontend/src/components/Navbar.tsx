@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white px-16 backdrop-blur-lg bg-opacity-60">
+      <header className="">
         <nav
           className="flex items-center justify-between pt-2 pb-1 lg:px-8"
           aria-label="Global"

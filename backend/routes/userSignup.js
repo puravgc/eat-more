@@ -7,7 +7,15 @@ const bcrypt = require("bcrypt");
 router.post("/signup", async (req, res) => {
   try {
     //Fetch Data from frontend
-    const { username, email, password } = req.body;
+    const {
+      username,
+      email,
+      password,
+      firstName,
+      lastName,
+      address,
+      phoneNumber,
+    } = req.body;
 
     //check if user already exists
     const existingUser = await User.findOne({ email: email });
@@ -22,6 +30,10 @@ router.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      firstName,
+      lastName,
+      address,
+      phoneNumber,
     });
     await newUser.save();
     res

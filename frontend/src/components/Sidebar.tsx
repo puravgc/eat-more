@@ -27,7 +27,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="fixed min-w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 shadow-lg shadow-gray-500">
+    <div className=" mt-10">
       <div className="h-full px-3 py-4 overflow-y-auto flex justify-center items-center">
         <ul className="space-y-2 font-medium w-full flex flex-col">
           {categories.map((category, index) => (

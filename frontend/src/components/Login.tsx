@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { userContext } from "../context/userContext";
 const Login = () => {
   const navigate = useNavigate();
@@ -25,31 +25,11 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         setisLoggedIn(true);
         setloading(false);
-        toast(data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
+        toast.success(data.message);
         navigate("/order");
       } else {
         setloading(false);
-        toast.error(data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <div
         className="flex justify-center items-center h-screen"
         style={{
@@ -68,7 +48,7 @@ const Login = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="h-2/3 bg-gray-100 lg:w-1/2 flex items-center justify-center shadow-2xl rounded-2xl backdrop-blur-lg bg-opacity-50">
+        <div className="h-2/3 bg-gray-100 lg:w-1/2 flex flex-col items-center justify-center shadow-2xl rounded-2xl backdrop-blur-lg bg-opacity-50">
           <div className="max-w-md w-full">
             <h1 className="text-3xl font-semibold mb-6 text-black text-center">
               Log In
@@ -123,7 +103,7 @@ const Login = () => {
                   type="text"
                   id="email"
                   name="email"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                  className=" bg-white mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                 />
               </div>
               <div>
@@ -136,7 +116,7 @@ const Login = () => {
                   type="password"
                   id="password"
                   name="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                  className="bg-white mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                 />
               </div>
               <div>
@@ -149,7 +129,7 @@ const Login = () => {
                       <div role="status">
                         <svg
                           aria-hidden="true"
-                          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"

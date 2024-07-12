@@ -1,7 +1,7 @@
 import { Button, Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useState } from "react";
 import { categoryContext } from "../context/categoryContext";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 export default function CartModal({
   cartModal,
@@ -31,20 +31,11 @@ export default function CartModal({
     });
     const data = await response.json();
     if (data.success === false) {
-      toast.error(data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
+      toast.error(data.message);
       setcartModal(false);
       return;
     }
+    toast.success(data.message);
     setcartModal(false);
     settotalCartItems((prevItems) => prevItems + quantity);
   };
@@ -60,7 +51,7 @@ export default function CartModal({
         <div className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto bg-gray-500 bg-opacity-75">
           <Dialog.Panel className="relative w-full max-w-lg p-6 bg-white rounded-xl shadow-xl">
             <button
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none"
+              className="absolute -top-1 right-4 text-black hover:text-gray-600 focus:outline-none"
               onClick={() => setcartModal(false)}
             >
               <span className="sr-only">Close</span>

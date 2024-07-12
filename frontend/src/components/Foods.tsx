@@ -20,7 +20,7 @@ const Foods = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   return (
-    <div className="ml-64 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-6">
       {foodData.length > 0 &&
         foodData.map((food) => {
           const price = food.idMeal % 10 + 10;
