@@ -9,6 +9,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cartItems, setcartItems] = useState([]);
   const [totalPrice, settotalPrice] = useState(0);
+  const [promo, setpromo] = useState("");
   const { totalCartItems, settotalCartItems } = useContext(categoryContext);
   const fetchCartItems = async () => {
     try {
@@ -20,10 +21,9 @@ const Cart = () => {
         },
       });
       const data = await response.json();
-
       if (response.ok) {
-        setcartItems(data);
-        calculateTotal(data);
+        setcartItems(data.cartItems);
+        calculateTotal(data.cartItems);
       } else {
         toast.error(data.message);
         navigate("/login");
@@ -81,6 +81,50 @@ const Cart = () => {
     }
   };
 
+  const getUserData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/getuser", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await response.json();
+      return data.promoCode;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePromo = async (e) => {
+    e.preventDefault();
+    const usedPromoCode = await getUserData();
+    if (usedPromoCode) {
+      toast.error("You have already used a promo code");
+      return;
+    } else {
+      const response = await fetch("http://localhost:5000/addoffer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          code: promo,
+        }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast.success(data.message);
+        setpromo("");
+        settotalPrice();
+      } else {
+        toast.error(data.message);
+      }
+    }
+  };
+
   useEffect(() => {
     fetchCartItems();
   }, []);
@@ -96,7 +140,7 @@ const Cart = () => {
                   Shopping Cart
                 </h2>
                 <h2 className="font-manrope font-bold text-xl leading-8 text-gray-600">
-                  3 Items
+                  {totalCartItems} Items
                 </h2>
               </div>
               <div className="grid grid-cols-12 mt-8 max-md:hidden pb-6 border-b border-gray-200">
@@ -204,7 +248,7 @@ const Cart = () => {
               <div className="mt-8">
                 <div className="flex items-center justify-between pb-6">
                   <p className="font-normal text-lg leading-8 text-black">
-                    3 Items
+                    {totalCartItems} Items
                   </p>
                   <p className="font-medium text-lg leading-8 text-black">
                     ${totalPrice}
@@ -222,43 +266,26 @@ const Cart = () => {
                     <div className="relative w-full ">
                       <div className=" absolute left-0 top-0 py-2.5 px-4 text-gray-300"></div>
                       <input
+                        onChange={(e) => {
+                          setpromo(e.target.value);
+                        }}
                         type="text"
                         className="block w-full h-11 pr-11 pl-5 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-white border border-gray-300 rounded-lg placeholder-gray-500 focus:outline-gray-400 "
-                        placeholder="xxxx xxxx xxxx"
+                        placeholder="Enter your code here . . ."
                       />
-                      <button
-                        id="dropdown-button"
-                        data-target="dropdown"
-                        className="dropdown-toggle flex-shrink-0 z-10 inline-flex items-center py-4 px-4 text-base font-medium text-center text-gray-900 bg-transparent  absolute right-0 top-0 pl-2 "
-                        type="button"
-                      >
-                        <svg
-                          className="ml-2 my-auto"
-                          width="12"
-                          height="7"
-                          viewBox="0 0 12 7"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M1 1.5L4.58578 5.08578C5.25245 5.75245 5.58579 6.08579 6 6.08579C6.41421 6.08579 6.74755 5.75245 7.41421 5.08579L11 1.5"
-                            stroke="#6B7280"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          ></path>
-                        </svg>
-                      </button>
                     </div>
                   </div>
                   <div className="flex items-center border-b border-gray-200">
-                    <button className="rounded-lg w-full bg-black py-2.5 px-4 text-white text-sm font-semibold text-center mb-8 transition-all duration-500 hover:bg-black/80">
+                    <button
+                      onClick={handlePromo}
+                      className="rounded-lg w-full bg-black py-2.5 px-4 text-white text-sm font-semibold text-center mb-8 transition-all duration-500 hover:bg-black/80"
+                    >
                       Apply
                     </button>
                   </div>
                   <div className="flex items-center justify-between py-8">
                     <p className="font-medium text-xl leading-8 text-black">
-                      3 Items
+                      {totalCartItems} Items
                     </p>
                     <p className="font-semibold text-xl leading-8">
                       ${totalPrice}

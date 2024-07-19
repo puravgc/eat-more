@@ -1,5 +1,5 @@
 import React from "react";
-import illustration from "../../public/illustration.png";
+import illustration from "/illustration.png";
 import { FlipWords } from "./ui/flip-words";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
@@ -7,8 +7,8 @@ export default function Example() {
   const words = ["Delight", "Pleasure", "Satisfaction", "Excitement"];
   const navigate = useNavigate();
   return (
-    <div className="bg-white h-screen overflow-hidden">
-      <div className="px-6 pt-14 lg:px-8  flex justify-between items-center">
+    <div className="bg-white overflow-hidden">
+      <div className="px-6 lg:px-8  flex justify-between items-center">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">

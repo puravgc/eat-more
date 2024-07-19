@@ -65,7 +65,7 @@ router.patch("/updatecart/:id", checkAuth, async (req, res) => {
 router.get("/getcart", checkAuth, async (req, res) => {
   try {
     const cartItems = await Cart.find({ user: req.user._id });
-    res.json(cartItems);
+    res.json({ cartItems, success: true });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error retrieving cart items" });

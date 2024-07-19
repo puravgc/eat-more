@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true },
   cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cart" }],
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+  promoCode: { type: Boolean },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -12,6 +12,7 @@ import { userContext } from "./context/userContext";
 import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./components/Cart";
+import Profile from "./components/Profile.tsx";
 
 const App = () => {
   const [username, setusername] = useState("");
@@ -50,6 +51,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/details" element={<Details />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/order" element={<Order />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<Nopage />} />

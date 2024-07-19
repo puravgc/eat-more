@@ -50,8 +50,9 @@ export default function CartModal({
       >
         <div className="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto bg-gray-500 bg-opacity-75">
           <Dialog.Panel className="relative w-full max-w-lg p-6 bg-white rounded-xl shadow-xl">
+            <div className="w-full flex justify-end mb-2">
             <button
-              className="absolute -top-1 right-4 text-black hover:text-gray-600 focus:outline-none"
+              className=" text-black hover:text-gray-600 focus:outline-none"
               onClick={() => setcartModal(false)}
             >
               <span className="sr-only">Close</span>
@@ -70,6 +71,7 @@ export default function CartModal({
                 ></path>
               </svg>
             </button>
+            </div>
             <img
               src={image}
               alt={name}

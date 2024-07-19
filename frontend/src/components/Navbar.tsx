@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { IoFastFoodSharp } from "react-icons/io5";
+import { GoPerson } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
 import { userContext } from "../context/userContext";
 import Cookies from "js-cookie";
 import { categoryContext } from "../context/categoryContext";
-import logo from "../../public/logo.png";
+import logo from "/logo.png";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,9 +24,11 @@ const Navbar = () => {
         },
       });
       const data = await response.json();
+      console.log(data);
       if (data.success === true) {
-        const totalItems = data.reduce((acc, item) => acc + item.quantity, 0);
-        settotalCartItems(totalItems);
+        data.cartItems.map((item) => {
+          settotalCartItems((prevState) => prevState + item.quantity);
+        });
       }
     } catch (error) {
       console.error(error);
@@ -47,7 +49,7 @@ const Navbar = () => {
   }, [isLoggedIn]);
 
   return (
-    <div>
+    <div className="bg-transparent backdrop-blur-2xl">
       <header className="">
         <nav
           className="flex items-center justify-between pt-2 pb-1 lg:px-8"
@@ -80,7 +82,7 @@ const Navbar = () => {
 
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {isLoggedIn ? (
-              <div className="flex gap-10">
+              <div className="flex gap-20">
                 <div
                   className="relative cursor-pointer"
                   onClick={() => {
@@ -92,6 +94,15 @@ const Navbar = () => {
                   <div className="absolute -top-4 -right-2 bg-red-500 min-h-5 min-w-5 flex justify-center items-center rounded-full">
                     <p className="text-white text-sm">{totalCartItems}</p>
                   </div>
+                </div>
+                <div
+                  className="relative cursor-pointer"
+                  onClick={() => {
+                    navigate("/profile");
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <GoPerson className="h-8 w-8 text-black-600" />
                 </div>
 
                 <button
@@ -167,7 +178,17 @@ const Navbar = () => {
                       </div>
                       <button
                         onClick={() => {
-                          Cookies.remove("token");
+                          localStorage.removeItem("token");
+                          setisLoggedIn(false);
+                          navigate("/");
+                        }}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      >
+                        Profile
+                      </button>
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem("token");
                           setisLoggedIn(false);
                           navigate("/");
                         }}
