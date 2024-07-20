@@ -20,7 +20,7 @@ const Nopage = () => {
             onClick={() => {
               navigate("/");
             }}
-            className="inline-flex text-white bg-indigo-500 hover:bg-indigo-600  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4"
+            className="inline-flex text-white bg-red-500 hover:bg-red-600  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4"
           >
             Back to Homepage
           </button>

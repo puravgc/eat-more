@@ -52,7 +52,7 @@ const Navbar = () => {
     <div className="bg-transparent backdrop-blur-2xl">
       <header className="">
         <nav
-          className="flex items-center justify-between pt-2 pb-1 lg:px-8"
+          className="flex items-center justify-between pt-1 pb-1 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">

@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { categoryContext } from "../context/categoryContext";
 import { GrSubtract, GrAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
+import PaymentOptions from "./PaymentOptions";
 const Cart = () => {
   const navigate = useNavigate();
   const [cartItems, setcartItems] = useState([]);
@@ -115,10 +116,13 @@ const Cart = () => {
         }),
       });
       const data = await response.json();
+      console.log(data);
       if (data.success) {
         toast.success(data.message);
         setpromo("");
-        settotalPrice();
+        settotalPrice(
+          (prev) => prev - (data.existingPromo.discount / 100) * prev
+        );
       } else {
         toast.error(data.message);
       }
@@ -130,7 +134,7 @@ const Cart = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen mt-10">
+    <div className="h-screen w-screen">
       <section className=" relative z-10 after:contents-[''] after:absolute after:z-0 after:h-full xl:after:w-1/3 after:top-0 after:right-0 after:bg-gray-50">
         <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto relative z-10">
           <div className="grid grid-cols-12">
@@ -291,6 +295,7 @@ const Cart = () => {
                       ${totalPrice}
                     </p>
                   </div>
+                  <PaymentOptions />
                   <button className="w-full text-center bg-red-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-red-700">
                     Checkout
                   </button>
