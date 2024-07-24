@@ -4,6 +4,8 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const { Server } = require("socket.io");
+const { createServer } = require("http");
 
 dotenv.config();
 app.use(cookieParser());
@@ -14,6 +16,29 @@ app.use(require("./routes/userSignup"));
 app.use(require("./routes/userLogin"));
 app.use(require("./routes/addCart"));
 app.use(require("./routes/promoCode"));
+app.use(require("./routes/admin"));
+
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("username: " + socket.id);
+  socket.on("checkoutcart", (data) => {
+    console.log(data);
+    io.emit("cartdetails", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -33,8 +58,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

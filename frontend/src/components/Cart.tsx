@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-
+import { io } from "socket.io-client";
 import { IoIosClose } from "react-icons/io";
 import { toast } from "react-hot-toast";
 import { categoryContext } from "../context/categoryContext";
@@ -7,10 +7,12 @@ import { GrSubtract, GrAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import PaymentOptions from "./PaymentOptions";
 const Cart = () => {
+  const socket = io("http://localhost:5000");
   const navigate = useNavigate();
   const [cartItems, setcartItems] = useState([]);
   const [totalPrice, settotalPrice] = useState(0);
   const [promo, setpromo] = useState("");
+  const [paymentOption, setpaymentOption] = useState("");
   const { totalCartItems, settotalCartItems } = useContext(categoryContext);
   const fetchCartItems = async () => {
     try {
@@ -96,6 +98,22 @@ const Cart = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const checkoutHandler = async (e) => {
+    e.preventDefault();
+
+    if (cartItems.length === 0) {
+      toast.error("Please add at least one item to the cart");
+      return;
+    }
+
+    if (paymentOption === "") {
+      toast.error("Please select a payment option");
+      return;
+    }
+
+    socket.emit("checkoutcart", { cartItems, paymentOption });
   };
 
   const handlePromo = async (e) => {
@@ -295,8 +313,14 @@ const Cart = () => {
                       ${totalPrice}
                     </p>
                   </div>
-                  <PaymentOptions />
-                  <button className="w-full text-center bg-red-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-red-700">
+                  <PaymentOptions
+                    paymentOption={paymentOption}
+                    setpaymentOption={setpaymentOption}
+                  />
+                  <button
+                    onClick={checkoutHandler}
+                    className="w-full text-center bg-red-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-red-700"
+                  >
                     Checkout
                   </button>
                 </form>

@@ -1,13 +1,6 @@
-// PaymentOptions.js
-import React, { useState } from "react";
+import React from "react";
 
-const PaymentOptions = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
+const PaymentOptions = ({ paymentOption, setpaymentOption }) => {
   return (
     <div className="bg-gray-100 rounded-lg pb-3">
       <h3 className="mb-5 text-lg font-medium text-gray-500">
@@ -21,8 +14,8 @@ const PaymentOptions = () => {
             name="payment"
             value="Cash on Delivery"
             className="hidden peer"
-            checked={selectedOption === "Cash on Delivery"}
-            onChange={handleOptionChange}
+            checked={paymentOption === "Cash on Delivery"}
+            onChange={(e) => setpaymentOption(e.target.value)}
           />
           <label
             htmlFor="cod-option"
@@ -30,7 +23,7 @@ const PaymentOptions = () => {
           >
             <div className="block">
               <div className="w-full flex justify-center items-center">
-                <img src="/cod.png" alt="cash on delivery" className="h-10" />
+                <img src="/cod.png" alt="Cash on Delivery" className="h-10" />
               </div>
               <div className="w-full text-lg font-semibold text-center">
                 Cash on Delivery
@@ -45,8 +38,8 @@ const PaymentOptions = () => {
             name="payment"
             value="eSewa Payment"
             className="hidden peer"
-            checked={selectedOption === "eSewa Payment"}
-            onChange={handleOptionChange}
+            checked={paymentOption === "eSewa Payment"}
+            onChange={(e) => setpaymentOption(e.target.value)}
           />
           <label
             htmlFor="esewa-option"
@@ -54,7 +47,7 @@ const PaymentOptions = () => {
           >
             <div className="block">
               <div className="w-full flex justify-center items-center">
-                <img src="/esewa.png" alt="cash on delivery" className="h-10" />
+                <img src="/esewa.png" alt="eSewa Payment" className="h-10" />
               </div>
               <div className="w-full text-lg font-semibold text-center">
                 eSewa Payment
