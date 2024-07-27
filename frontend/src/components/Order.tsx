@@ -5,11 +5,11 @@ import { categoryContext } from "../context/categoryContext";
 const Order = () => {
   const { selectedCategory } = useContext(categoryContext);
   return (
-    <div className="h-screen w-screen flex">
+    <div className="flex">
       <div className=" w-1/5">
         <Sidebar />
       </div>
-      <div className="overflow-y-auto w-full">
+      <div className="w-full mt-14">
         <Foods selectedCategory={selectedCategory} />
       </div>
     </div>

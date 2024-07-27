@@ -61,7 +61,6 @@ const Profile = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
-       
         currentPassword,
         newPassword,
         confirmPassword,
@@ -103,7 +102,7 @@ const Profile = () => {
 
   return (
     <div
-      className="h-screen w-screen flex justify-center items-center"
+      className="h-screen w-screen flex justify-center items-center pt-16 px-4"
       style={{
         backgroundImage: "url('/profilebg.jpg')",
         backgroundRepeat: "no-repeat",
@@ -111,9 +110,9 @@ const Profile = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="p-6 max-w-lg mx-auto bg-transparent backdrop-blur-2xl shadow-gray-600 shadow-md rounded-md -mt-24 border">
-        <h1 className="text-3xl font-bold mb-16 text-center">Profile</h1>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="p-6 max-w-md w-full bg-transparent backdrop-blur-2xl shadow-gray-600 shadow-md rounded-md border">
+        <h1 className="text-2xl font-bold mb-8 text-center">Profile</h1>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               First Name
@@ -149,7 +148,7 @@ const Profile = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
@@ -187,11 +186,11 @@ const Profile = () => {
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-600"
+          className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-600 mt-4 w-full"
         >
           Change Password
         </button>
-        <div className="grid grid-cols-1 gap-6 mt-6">
+        <div className="grid grid-cols-1 gap-4 mt-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Phone Number
@@ -259,10 +258,10 @@ const Profile = () => {
             </button>
           )
         ) : (
-          <div className="grid grid-cols-1 gap-4 mt-6">
+          <div className="grid grid-cols-1 gap-4 mt-4">
             <button
               onClick={() => setIsEditing(true)}
-              className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-600"
+              className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-600 w-full"
             >
               Edit Profile
             </button>
@@ -274,10 +273,10 @@ const Profile = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Change Password"
-        className="fixed inset-0 flex items-center justify-center"
+        className="fixed inset-0 flex items-center justify-center p-4"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50"
       >
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
           <label className="block text-sm font-medium text-gray-700">
             Current Password
@@ -289,7 +288,7 @@ const Profile = () => {
             onChange={(e) => setcurrentPassword(e.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
           />
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 mt-4">
             New Password
           </label>
           <input
@@ -309,7 +308,7 @@ const Profile = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
           />
-          <div className="mt-6 flex justify-between">
+          <div className="mt-6 flex justify-between flex-wrap">
             <button
               onClick={handleChangePassword}
               className="bg-red-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-red-600 mr-2"
@@ -318,7 +317,7 @@ const Profile = () => {
             </button>
             <button
               onClick={() => setIsModalOpen(false)}
-              className="bg-gray-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-600 mr-2"
+              className="bg-gray-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-600"
             >
               Cancel
             </button>

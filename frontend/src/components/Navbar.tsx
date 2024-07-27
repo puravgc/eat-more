@@ -48,7 +48,7 @@ const Navbar = () => {
   }, [isLoggedIn]);
 
   return (
-    <div className="bg-transparent backdrop-blur-2xl">
+    <div className="bg-transparent backdrop-blur-2xl fixed w-full z-50 top-0">
       <header className="">
         <nav
           className="flex items-center justify-between pt-1 pb-1 lg:px-8"
@@ -159,16 +159,11 @@ const Navbar = () => {
                       <div
                         className="flex gap-4 items-center"
                         onClick={() => {
-                          navigate("/order");
+                          navigate("/cart");
                           setMobileMenuOpen(false);
                         }}
                       >
-                        <button
-                          onClick={() => {
-                            navigate("/cart");
-                          }}
-                          className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                        >
+                        <button className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                           My Cart
                         </button>
                         <div className=" bg-black flex justify-center items-center rounded-full h-5 w-5">
@@ -177,9 +172,8 @@ const Navbar = () => {
                       </div>
                       <button
                         onClick={() => {
-                          localStorage.removeItem("token");
-                          setisLoggedIn(false);
-                          navigate("/");
+                          navigate("/profile");
+                          setMobileMenuOpen(false);
                         }}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                       >
@@ -200,6 +194,7 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         navigate("/login");
+                        setMobileMenuOpen(false);
                       }}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >

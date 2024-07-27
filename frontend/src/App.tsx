@@ -23,7 +23,7 @@ const App = () => {
   const [totalCartItems, settotalCartItems] = useState(0);
   return (
     <BrowserRouter>
-      <div className="h-screen w-screen overflow-hidden">
+      <div className="">
         <categoryContext.Provider
           value={{
             selectedCategory,
